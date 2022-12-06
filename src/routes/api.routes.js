@@ -5,6 +5,6 @@ const router = Router()
 
 router.get('/', apiGet)
 router.post('/', apiPost)
-router.delete('/', apiDelete)
+router.post('/delete', apiDelete)
 
 export default router
