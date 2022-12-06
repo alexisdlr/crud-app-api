@@ -30,6 +30,21 @@ export const apiPost = async (req, res) => {
 }
 
 export const apiUpdate = async (req, res) => {
+  try {
+    const q = 'UPDATE pacientes SET nombre = ?, apellido = ?, correo = ? WHERE ID = ?'
+    const id = req.query.id
+    const values = [
+      req.body.nombre,
+      req.body.apellido,
+      req.body.correo,
+      id
+    ]
+    const [rows] = await pool.query(q, values)
+    return res.status(200).json(rows)
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json(error)
+  }
 
 }
 export const apiDelete = async (req, res) => {
