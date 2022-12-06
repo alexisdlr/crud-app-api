@@ -39,8 +39,11 @@ export const apiUpdate = async (req, res) => {
       req.body.correo,
       id
     ]
+
     const [rows] = await pool.query(q, values)
-    return res.status(200).json(rows)
+    const select = 'SELECT * FROM pacientes'
+    const [data] = await pool.query(select)
+    return res.status(200).json(data)
   } catch (error) {
     console.log(error)
     return res.status(500).json(error)
@@ -51,7 +54,9 @@ export const apiDelete = async (req, res) => {
   try {
     const q = 'DELETE FROM pacientes WHERE id = (?)'
     const [rows] = await pool.query(q, req.query.id)
-    return res.status(200).json(rows)
+    const select = 'SELECT * FROM pacientes'
+    const [data] = await pool.query(select)
+    return res.status(200).json(data)
   } catch (error) {
     console.log(error)
     return res.status(500).json(error)
