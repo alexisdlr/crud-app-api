@@ -2,8 +2,11 @@ import { pool } from "../connect.js";
 
 export const apiGet = async (req, res) => {
  try {
-  const q = 'SELECT * FROM pacientes';
-  const [rows] = await pool.query(q)
+  const name = req.query.nombre
+  const q = name ? 'SELECT * FROM pacientes WHERE nombre = ?': 'SELECT * FROM pacientes';
+  const values = name ? [name] : null
+  const [rows] = await pool.query(q, values)
+  
   return res.status(200).json(rows)
  } catch (error) {
   console.log(error)
