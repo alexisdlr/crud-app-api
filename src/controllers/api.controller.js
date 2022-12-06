@@ -30,5 +30,12 @@ export const apiUpdate = async (req, res) => {
 
 }
 export const apiDelete = async (req, res) => {
-
+  try {
+    const q = 'DELETE FROM pacientes WHERE id = (?)'
+    const [rows] = await pool.query(q, req.query.id)
+    return res.status(200).json(rows)
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json(error)
+  }
 }
